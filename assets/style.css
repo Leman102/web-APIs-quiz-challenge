@@ -1,0 +1,94 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+body{
+    background-color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+header{
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;    
+}
+
+p.page-title{
+    color: violet;
+}
+
+.page-content {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 25px auto;
+    width: 50%;
+}
+
+.quiz-intro h1, .quiz-intro p{
+    margin: auto;
+    padding: 10px 10px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.quiz-intro h1{
+    font-size: 35px;
+}
+
+.quiz-intro p{
+    font-size: 25px;
+}
+
+.quiz-intro a {
+    background-color: navy;
+    color: white;
+    padding: 10px 30px;
+    font-size: 25px;
+    border-radius: 15px;
+    margin: 20px auto 10px auto;
+    display: flex;
+    text-decoration: none;
+    justify-content: center;
+}
+
+#start-quiz:hover{
+    background-color: violet;
+}
+/* quiz style */
+.quiz-content {
+    flex: 1;
+    margin: 0 20px 20px;
+    align-items: center;
+}
+.quiz-content h2{
+    text-align: left;
+    
+}
+.quiz-list{
+    width: 95%;
+    list-style-position: inside;
+}
+
+.choice-container{
+    display: flex;
+    background-color: navy;
+    color: white;
+    border-radius: 12px;
+    padding: 10px;
+    margin: 15px 5px;
+}
+
+.choice-container:hover{
+    background-color: violet;
+    cursor: pointer;
+    transform: scale(1.02);
+}
+
+.choice-prefix, .choice-text{
+    padding: 5px;
+}
+
