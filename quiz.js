@@ -1,8 +1,11 @@
 var question = document.querySelector("#question");
-var choices = Array.from(document.querySelector(".choice-text"));
+var choices = Array.from(document.querySelectorAll(".choice-text"));
 var scoreText = document.querySelector(".countdown");
 var pageContent = document.querySelector("#page-content");
 
+console.log(choices)
+
+pageContent.querySelector(".choice-text").textContent ="peace"
 
 function countDown(){
     timeLeft = 75
@@ -17,17 +20,18 @@ function countDown(){
         }
     },1000)
 }
-console.log(scoreText)
+// console.log(scoreText)
 
 
 let currentQuestion = {};
 let acceptingAnswers = true;
 let questionCounter = 0;
 let availableQuestions = [];
+let score = 0;
 
 // console.log(scoreText);
 
-let questions = [
+let questionsContent = [
     {
         question: "Commonly used data types DO NOT Include:",
         choice1: "stings",
@@ -70,51 +74,73 @@ let questions = [
     },
 ]
 
-console.log()
+const scorePoints = 100;
+var maxQuestions = questionsContent.length;
+
+startQuiz = () => {
+    questionCounter = 0;
+    score = 0;
+    availableQuestions = [...questionsContent]
+    getNewQuestion()
+    // console.log(availableQuestions)
+}
+
+getNewQuestion = () => {
+    if(availableQuestions.length === 0 || questionCounter > maxQuestions){
+        alert("Game Over")
+        localStorage.setItem('mostRecentScore', score);
+        return localStorage.assign("./end.html");
+    }
+
+    questionCounter++;
+    
+    var questionIndex = Math.floor(Math.random() * availableQuestions.length)
+    
+    currentQuestion = availableQuestions[questionIndex]
+    question.innerText = currentQuestion.question
+    
+    choices.forEach(choice =>{
+        var number = choice.dataset['number'];
+        console.log(number)
+        choice.innerText = currentQuestion['choice' + number]
+    })
+    availableQuestions.splice(questionIndex, 1)
+
+    acceptingAnswers = true; 
+    console.log(currentQuestion)
+}
+
+choices.forEach(choice => {
+    choice.addEventListener("click", e => {
+        if(!acceptingAnswers) return
+
+        acceptingAnswers = false;
+        var selectedChoice = e.target;
+        var selectedAnswer = selectedChoice.dataset['number'];
+       
+        let classToApply = selectedAnswer == currentQuestion.answer ? 'correct' : 'incorrect'
+
+        if(classToApply === 'correct'){
+            incrementScore(10);
+        }
+        selectedChoice.parentElement.classList.add(classToApply)
+
+        setTimeout(()=>{
+            selectedChoice.parentElement.classList.remove(classToApply)
+            getNewQuestion()
+        },1000)
+       
+    })
+})
+
+// incrementScore = num => {
+//     timeleft += num
+//     scoreText.innerText = timeLeft
+// }
 
 
+
+startQuiz()
 countDown();
 
 pageContent.addEventListener("submit",countDown);
-
-// let MaxQuestions = 5;
-
-// var startQuiz = function(){
-//     questionCounter = 0;
-//     score = 0;
-//     availableQuestions = [...questions]
-//     getNewQuestion()
-// }
-
-// var getNewQuestion = function(){
-//     if(availableQuestions.length === 0 || questionCounter > MaxQuestions){
-//         localStorage.setItem('mostRecentScore', score);
-//         return window.location.assign("./end.html")
-//     }
-    
-//     questionCounter++;
-
-//     let questionIndex = Math.floor(Math.random() * availableQuestions.length);
-//     currentQuestion = availableQuestions[questionIndex];
-//     question.innerText = currentQuestion.question;
-
-//     choices.forEach(function(choice){
-//         var number = choice.dataset['number'];
-//         choice.innerText = currentQuestion["choice" + number]
-//     }) 
-
-//     availableQuestions.splice(questionIndex,1)
-//     acceptingAnswers = true;
-// }
-
-// choices.forEach(function(choice){
-//     choice.addEventListener("click", function (e){
-//         if(!acceptingAnswers)return
-
-//         acceptingAnswers = false;
-//         let selectedChoice = e.target;
-//         let selectedAnswer = selectedChoice.dataset["number"];
-
-//         // let classToApply = selectedAnswer == currentQuestion.answer 
-//     })
-// })
