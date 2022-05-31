@@ -58,6 +58,8 @@ p.page-title{
 #start-quiz:hover{
     background-color: violet;
 }
+
+
 /* quiz style */
 .quiz-content {
     flex: 1;
@@ -116,4 +118,75 @@ p.page-title{
     border-top: 5px dotted rgb(248, 100, 100);
     width: 50%;
     color: rgb(248, 100, 100);
+}
+
+/* High scores style*/
+
+header a{
+    text-decoration: none;
+    color: violet;
+    font-weight: bold;
+}
+
+
+.participant-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 30rem;
+    text-align: center;
+}
+
+.form-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 30rem;
+    text-align: center;
+}
+
+
+.final-score{
+    color: gray;
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+
+.form-container input {
+    margin-bottom: 16px;
+    color: black;
+    padding: 16px;
+    font-size: 25px;
+    border: none;
+    width: 80%;
+    box-shadow: 0 3px 5px 0 rgb(86,185,235,0.5 );
+}
+
+
+.participant-info .btn {
+    background-color: navy;
+    color: white;
+    padding: 8px 30px;
+    font-size: 20px;
+    border-radius: 15px;
+    margin: 5px;
+    display: flex;
+    text-decoration: none;
+    justify-content: center;
+    width: 50%;
+}
+
+.participant-info .btn:hover{
+    background-color: violet;
+    cursor: pointer;
+    transform: scale(1.02);
+}
+
+.participant-info .btn:active{
+    background-color: violet;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
 }

@@ -87,7 +87,7 @@ getNewQuestion = () => {
        
         localStorage.setItem('mostRecentScore', timeLeft);
         console.log(timeLeft)
-        return localStorage.assign("./end.html");
+        return window.location.assign("/end.html");
     }
     footer.className = '';
     footer.textContent = '';
@@ -119,13 +119,15 @@ choices.forEach(choice => {
         var selectedAnswer = selectedChoice.dataset['number'];
        
         if(selectedAnswer == currentQuestion.answer){
-            console.log("correct")
-            correctLabel();
+            // correctLabel();
+            footer.className = 'correct-label';
+            footer.textContent = '✅ CORRECT!'
             timeLeft += 10;
             // return footer.textContent = ""
         }else if(selectedAnswer != currentQuestion.answer){
-            console.log("incorrect")
-            incorrectLabel();
+            footer.className = 'incorrect-label';
+            footer.textContent = '❌ INCORRECT!'
+            // incorrectLabel();
             if(timeLeft > 10){
                 timeLeft -= 10;
 
@@ -141,22 +143,22 @@ choices.forEach(choice => {
     })
 })
 
-var correctLabel = () =>{
-    // var labelInfo = document.createElement("div");
-    // labelInfo.className = "resolution-label";
-    // labelInfo.innerHTML = "<h3 class='correct-label'>✅ CORRECT!</h3>";
-    // footer.append(labelInfo);
-    footer.className = 'correct-label';
-    footer.textContent = '✅ CORRECT!'
-}
-var incorrectLabel = () =>{
-    // var labelInfo = document.createElement("div");
-    // labelInfo.className = "resolution-label";
-    // labelInfo.innerHTML = "<h3 class='incorrect-label'>❌ INCORRECT!</h3>";
-    // footer.append(labelInfo);
-    footer.className = 'incorrect-label';
-    footer.textContent = '❌ INCORRECT!'
-}
+// var correctLabel = () =>{
+//     // var labelInfo = document.createElement("div");
+//     // labelInfo.className = "resolution-label";
+//     // labelInfo.innerHTML = "<h3 class='correct-label'>✅ CORRECT!</h3>";
+//     // footer.append(labelInfo);
+//     footer.className = 'correct-label';
+//     footer.textContent = '✅ CORRECT!'
+//}
+// var incorrectLabel = () =>{
+//     // var labelInfo = document.createElement("div");
+//     // labelInfo.className = "resolution-label";
+//     // labelInfo.innerHTML = "<h3 class='incorrect-label'>❌ INCORRECT!</h3>";
+//     // footer.append(labelInfo);
+//     footer.className = 'incorrect-label';
+//     footer.textContent = '❌ INCORRECT!'
+// }
 
 startQuiz()
 countDown();

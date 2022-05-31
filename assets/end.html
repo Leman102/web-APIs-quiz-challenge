@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/style.css" />
+    <title>APIs-Quiz</title>
+</head>
+<body>
+    <header>
+        <a class="choice-text" href="./index.html">Home</a>
+        <p class="page-title">View high scores</p>
+    </header>
+
+    <main class="page-content" id="page-content">
+        <section class="participant-info">
+            <form class="form-container">
+                <h1 class="final-score">0</h1>
+                <h2 id="form-text">Enter your name below to save your score</h2>
+                <input type="text" name="name" id="username" placeholder="Enter your name" />
+                <button class="btn" id="save-score-btn" type="submit" onclick="saveHighScore(event)" disabled>Save</button>
+                
+            </form>
+            <a href="./quiz.html" class="btn">Play Again</a>
+            <a href="/index.html" class="btn">Go Home 🏠</a>
+        </section>
+    </main>
+    <script src="./assets/end.js"></script>
+</body>
+</html>
