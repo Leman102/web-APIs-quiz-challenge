@@ -2,22 +2,19 @@ var question = document.querySelector("#question");
 var choices = Array.from(document.querySelectorAll(".choice-text"));
 var scoreText = document.querySelector(".countdown");
 var pageContent = document.querySelector("#page-content");
-
-console.log(choices)
-
-
+var footer = document.querySelector("#foot-h3");
 
 let currentQuestion = {};
 let acceptingAnswers = true;
 let questionCounter = 0;
 let availableQuestions = [];
 
-var timeLeft = ''
+var timeLeft = '';
 function countDown(){
-    timeLeft = 10;
+    timeLeft = 15;
 
     var timeInterval = setInterval(function (){   
-        if(timeLeft <= 0 || availableQuestions.length === 0 || questionCounter > maxQuestions){
+        if(timeLeft <= 0 ||questionCounter > maxQuestions){
             clearInterval(timeInterval);
             alert("Game Over " + timeLeft)
         }
@@ -92,7 +89,8 @@ getNewQuestion = () => {
         console.log(timeLeft)
         return localStorage.assign("./end.html");
     }
-
+    footer.className = '';
+    footer.textContent = '';
     questionCounter++;
     
     var questionIndex = Math.floor(Math.random() * availableQuestions.length)
@@ -111,6 +109,7 @@ getNewQuestion = () => {
     console.log(currentQuestion)
 }
 
+
 choices.forEach(choice => {
     choice.addEventListener("click", e => {
         if(!acceptingAnswers) return
@@ -121,30 +120,43 @@ choices.forEach(choice => {
        
         if(selectedAnswer == currentQuestion.answer){
             console.log("correct")
+            correctLabel();
             timeLeft += 10;
-            alert("correct")
+            // return footer.textContent = ""
         }else if(selectedAnswer != currentQuestion.answer){
             console.log("incorrect")
+            incorrectLabel();
             if(timeLeft > 10){
                 timeLeft -= 10;
+
             }else{
                 timeLeft = 0;
             }
             
         }
-
         setTimeout(()=>{
-            // selectedChoice.parentElement.classList.remove(classToApply)
             getNewQuestion()
         },500)
        
     })
 })
 
-// incrementScore = num => {
-//     timeleft += num
-//     scoreText.innerText = timeLeft
-// }
+var correctLabel = () =>{
+    // var labelInfo = document.createElement("div");
+    // labelInfo.className = "resolution-label";
+    // labelInfo.innerHTML = "<h3 class='correct-label'>✅ CORRECT!</h3>";
+    // footer.append(labelInfo);
+    footer.className = 'correct-label';
+    footer.textContent = '✅ CORRECT!'
+}
+var incorrectLabel = () =>{
+    // var labelInfo = document.createElement("div");
+    // labelInfo.className = "resolution-label";
+    // labelInfo.innerHTML = "<h3 class='incorrect-label'>❌ INCORRECT!</h3>";
+    // footer.append(labelInfo);
+    footer.className = 'incorrect-label';
+    footer.textContent = '❌ INCORRECT!'
+}
 
 startQuiz()
 countDown();
