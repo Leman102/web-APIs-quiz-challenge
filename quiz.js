@@ -5,30 +5,32 @@ var pageContent = document.querySelector("#page-content");
 
 console.log(choices)
 
-pageContent.querySelector(".choice-text").textContent ="peace"
-
-function countDown(){
-    timeLeft = 75
-
-    var timeInterval = setInterval(function (){
-        if(timeLeft > 0){
-            scoreText.textContent = timeLeft;
-            timeLeft--;
-        }
-        else if(timeLeft == 0){
-            clearInterval(timeInterval);
-        }
-    },1000)
-}
-// console.log(scoreText)
 
 
 let currentQuestion = {};
 let acceptingAnswers = true;
 let questionCounter = 0;
 let availableQuestions = [];
-let score = 0;
 
+var timeLeft = ''
+function countDown(){
+    timeLeft = 10;
+
+    var timeInterval = setInterval(function (){   
+        if(timeLeft <= 0 || availableQuestions.length === 0 || questionCounter > maxQuestions){
+            clearInterval(timeInterval);
+            alert("Game Over " + timeLeft)
+        }
+        else if(timeLeft > -1){
+            scoreText.textContent = timeLeft;
+            timeLeft--;
+        }
+
+    },1000)
+}
+// console.log(scoreText)
+
+console.log(timeLeft)
 // console.log(scoreText);
 
 let questionsContent = [
@@ -74,21 +76,20 @@ let questionsContent = [
     },
 ]
 
-const scorePoints = 100;
 var maxQuestions = questionsContent.length;
 
 startQuiz = () => {
     questionCounter = 0;
-    score = 0;
     availableQuestions = [...questionsContent]
     getNewQuestion()
-    // console.log(availableQuestions)
 }
 
 getNewQuestion = () => {
-    if(availableQuestions.length === 0 || questionCounter > maxQuestions){
-        alert("Game Over")
-        localStorage.setItem('mostRecentScore', score);
+    if(availableQuestions.length === 0 || questionCounter > maxQuestions || timeLeft === 0){
+        alert("Game Over " + timeLeft)
+       
+        localStorage.setItem('mostRecentScore', timeLeft);
+        console.log(timeLeft)
         return localStorage.assign("./end.html");
     }
 
@@ -118,17 +119,24 @@ choices.forEach(choice => {
         var selectedChoice = e.target;
         var selectedAnswer = selectedChoice.dataset['number'];
        
-        let classToApply = selectedAnswer == currentQuestion.answer ? 'correct' : 'incorrect'
-
-        if(classToApply === 'correct'){
-            incrementScore(10);
+        if(selectedAnswer == currentQuestion.answer){
+            console.log("correct")
+            timeLeft += 10;
+            alert("correct")
+        }else if(selectedAnswer != currentQuestion.answer){
+            console.log("incorrect")
+            if(timeLeft > 10){
+                timeLeft -= 10;
+            }else{
+                timeLeft = 0;
+            }
+            
         }
-        selectedChoice.parentElement.classList.add(classToApply)
 
         setTimeout(()=>{
-            selectedChoice.parentElement.classList.remove(classToApply)
+            // selectedChoice.parentElement.classList.remove(classToApply)
             getNewQuestion()
-        },1000)
+        },500)
        
     })
 })
@@ -137,8 +145,6 @@ choices.forEach(choice => {
 //     timeleft += num
 //     scoreText.innerText = timeLeft
 // }
-
-
 
 startQuiz()
 countDown();
