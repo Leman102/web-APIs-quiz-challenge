@@ -11,7 +11,7 @@ let availableQuestions = [];
 
 var timeLeft = '';
 function countDown(){
-    timeLeft = 15;
+    timeLeft = 20;
 
     var timeInterval = setInterval(function (){   
         if(timeLeft <= 0 ||questionCounter > maxQuestions){
@@ -87,10 +87,12 @@ getNewQuestion = () => {
        
         localStorage.setItem('mostRecentScore', timeLeft);
         console.log(timeLeft)
-        return window.location.assign("/end.html");
+        return window.location.assign('end.html');
     }
+    //clear footer class
     footer.className = '';
     footer.textContent = '';
+    
     questionCounter++;
     
     var questionIndex = Math.floor(Math.random() * availableQuestions.length)
@@ -119,15 +121,15 @@ choices.forEach(choice => {
         var selectedAnswer = selectedChoice.dataset['number'];
        
         if(selectedAnswer == currentQuestion.answer){
-            // correctLabel();
+           
             footer.className = 'correct-label';
             footer.textContent = '✅ CORRECT!'
             timeLeft += 10;
-            // return footer.textContent = ""
+         
         }else if(selectedAnswer != currentQuestion.answer){
             footer.className = 'incorrect-label';
             footer.textContent = '❌ INCORRECT!'
-            // incorrectLabel();
+           
             if(timeLeft > 10){
                 timeLeft -= 10;
 
@@ -138,27 +140,10 @@ choices.forEach(choice => {
         }
         setTimeout(()=>{
             getNewQuestion()
-        },500)
+        },1000)
        
     })
 })
-
-// var correctLabel = () =>{
-//     // var labelInfo = document.createElement("div");
-//     // labelInfo.className = "resolution-label";
-//     // labelInfo.innerHTML = "<h3 class='correct-label'>✅ CORRECT!</h3>";
-//     // footer.append(labelInfo);
-//     footer.className = 'correct-label';
-//     footer.textContent = '✅ CORRECT!'
-//}
-// var incorrectLabel = () =>{
-//     // var labelInfo = document.createElement("div");
-//     // labelInfo.className = "resolution-label";
-//     // labelInfo.innerHTML = "<h3 class='incorrect-label'>❌ INCORRECT!</h3>";
-//     // footer.append(labelInfo);
-//     footer.className = 'incorrect-label';
-//     footer.textContent = '❌ INCORRECT!'
-// }
 
 startQuiz()
 countDown();
